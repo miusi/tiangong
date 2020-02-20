@@ -36,7 +36,7 @@ public class UsernamePasswordUserDetailServiceImpl implements UsernamePasswordUs
         authorities.add(new SimpleGrantedAuthority("user"));
         Map<String, Object> detail = new HashMap<>(2);
         detail.put("name", username);
-        detail.put("roles", authorities);
+        detail.put("authorities", authorities);
         return detail;
     }
 }

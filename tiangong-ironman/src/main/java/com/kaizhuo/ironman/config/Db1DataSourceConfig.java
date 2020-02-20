@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ import javax.sql.DataSource;
  * @modified: miaochen
  **/
 @Configuration
-@MapperScan(basePackages = "com.kaizhuo.ironman.repository.db1",sqlSessionFactoryRef = "db1SqlSessionFactory")
+@MapperScan(basePackages = "com.kaizhuo.ironman.repository.db1", sqlSessionFactoryRef = "db1SqlSessionFactory")
 public class Db1DataSourceConfig {
 
     @Bean(name = "db1DataSource")
@@ -44,7 +45,7 @@ public class Db1DataSourceConfig {
         //设置mapper.xml文件路径,如果需要
         bean.setMapperLocations(
                 new PathMatchingResourcePatternResolver()
-                        .getResources("classpath:mybatis/mapper/db1/*Mapper.xml"));
+                        .getResources("classpath:mapper/db1/*Mapper.xml"));
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
         bean.setConfiguration(configuration);

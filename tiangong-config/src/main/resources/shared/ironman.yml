@@ -12,10 +12,10 @@ security:
 spring:
   datasource:
     db1:
-      jdbc-url: jdbc:mysql://db1url:3306/crm?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      username:
-      password:
-      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/zentao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
       initialSize: 50
       minIdle: 50
       maxActive: 300
@@ -25,12 +25,11 @@ spring:
       test-on-borrow: true
       testOnBorrow: true
       validationQuery: SELECT 1
-
     db2:
-      jdbc-url: jdbc:mysql://db2url:3306/crm?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      username:
-      password:
-      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/zentao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
       initialSize: 50
       minIdle: 50
       maxActive: 300
@@ -43,7 +42,7 @@ spring:
 
     redis:
       database: 0
-      host: redis
+      host: localhost
       password:
       port: 6379
       timeout: 5000
