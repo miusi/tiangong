@@ -25,6 +25,7 @@
     </properties>
 
     <modules>
+        <module>tiangong-core</module>
         <module>tiangong-data</module>
         <module>tiangong-register</module>
         <module>tiangong-config</module>
@@ -34,6 +35,7 @@
         <module>tiangong-ironman</module>
         <module>tiangong-usercenter</module>
         <module>tiangong-common</module>
+
     </modules>
 
     <repositories>
@@ -52,6 +54,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--self-->
+            <dependency>
+                <groupId>com.kaizhuo</groupId>
+                <artifactId>tiangong-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kaizhuo</groupId>
+                <artifactId>tiangong-data-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
