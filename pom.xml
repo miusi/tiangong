@@ -21,16 +21,19 @@
         <mysql.version>8.0.12</mysql.version>
         <hutool.version>5.0.0</hutool.version>
         <guava.version>28.1-jre</guava.version>
-        <user.agent.version>1.20</user.agent.version>
+        <baseUser.agent.version>1.20</baseUser.agent.version>
     </properties>
 
     <modules>
+        <module>tiangong-data</module>
         <module>tiangong-register</module>
         <module>tiangong-config</module>
         <module>tiangong-monitor</module>
         <module>tiangong-gateway</module>
         <module>tiangong-auth</module>
         <module>tiangong-ironman</module>
+        <module>tiangong-usercenter</module>
+        <module>tiangong-common</module>
     </modules>
 
     <repositories>
@@ -84,7 +87,7 @@
             <dependency>
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
-                <version>${user.agent.version}</version>
+                <version>${baseUser.agent.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

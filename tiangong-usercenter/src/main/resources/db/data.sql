@@ -1,0 +1,1 @@
+insert into base_user(id,user_name,password,created_time,modified_time) values(1,'admin','$2a$10$qaSgLID4/EKyhPmxRLYjoeFl88eMLuGT5eaWMcS3FYEq6M9iJs6Wa',now(),now())
