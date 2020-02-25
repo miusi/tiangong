@@ -28,6 +28,7 @@
     <modules>
         <module>tiangong-core</module>
         <module>tiangong-data</module>
+        <module>tiangong-component</module>
         <module>tiangong-register</module>
         <module>tiangong-config</module>
         <module>tiangong-monitor</module>
@@ -64,6 +65,11 @@
             <dependency>
                 <groupId>com.kaizhuo</groupId>
                 <artifactId>tiangong-data-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kaizhuo</groupId>
+                <artifactId>tiangong-component-swagger</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

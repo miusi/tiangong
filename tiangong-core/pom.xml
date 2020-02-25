@@ -8,7 +8,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>tiangong-core</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <name>tiangong-core</name>
 
     <properties>
@@ -20,6 +19,10 @@
         <dependency>
             <groupId>com.kaizhuo</groupId>
             <artifactId>tiangong-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kaizhuo</groupId>
+            <artifactId>tiangong-component-swagger</artifactId>
         </dependency>
         <!--spring-->
         <dependency>

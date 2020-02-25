@@ -19,7 +19,6 @@
         <dependency>
             <groupId>com.kaizhuo</groupId>
             <artifactId>tiangong-data-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <!--jpa-->
         <dependency>
