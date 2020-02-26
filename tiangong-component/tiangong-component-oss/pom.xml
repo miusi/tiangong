@@ -4,28 +4,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.kaizhuo</groupId>
-        <artifactId>tiangong</artifactId>
+        <artifactId>tiangong-component</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>tiangong-core</artifactId>
-
+    <artifactId>tiangong-component-oss</artifactId>
 
     <dependencies>
-        <!--SELF-->
         <dependency>
             <groupId>com.kaizhuo</groupId>
             <artifactId>tiangong-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.kaizhuo</groupId>
-            <artifactId>tiangong-component-swagger</artifactId>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
         </dependency>
-        <!--spring-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
         </dependency>
-        <!--others-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -35,18 +36,4 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

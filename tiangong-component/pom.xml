@@ -16,6 +16,10 @@
     </properties>
     <modules>
         <module>tiangong-component-swagger</module>
+        <module>tiangong-component-message</module>
+        <module>tiangong-component-oss</module>
+        <module>tiangong-component-ops</module>
+        <module>tiangong-component-rbac</module>
     </modules>
 
     <dependencyManagement>
@@ -27,14 +31,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <build>
-        <finalName>${project.name}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
