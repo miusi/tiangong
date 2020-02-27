@@ -1,6 +1,8 @@
 package com.kaizhuo.component.rbac.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kaizhuo.core.model.domain.BaseDomain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,7 +30,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "tiangong-rbac-dept")
+@Table(name = "tiangon_rbac_dept")
 @DynamicUpdate
 @Where(clause = "yn = 1")
 public class Dept extends BaseDomain {
@@ -47,4 +49,18 @@ public class Dept extends BaseDomain {
     @ApiModelProperty("排序")
     private Integer orderNum;
 
+    @ApiModelProperty("用户")
+    @JsonIgnore
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dept")
+    private List<User> users;
+
+    @ApiModelProperty("子级")
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent")
+    private List<Dept> children;
+
+    public Dept(Long id) {
+        this.id = id;
+    }
 }

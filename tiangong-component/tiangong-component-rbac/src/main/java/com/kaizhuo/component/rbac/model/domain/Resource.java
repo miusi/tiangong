@@ -30,7 +30,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "tiangong-rbac-recource")
+@Table(name = "tiangong_rbac_recource")
 @DynamicUpdate
 @Where(clause = "yn = 1")
 public class Resource extends BaseDomain {

@@ -1,5 +1,7 @@
 package com.kaizhuo.component.rbac.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kaizhuo.core.model.domain.BaseDomain;
 import io.swagger.annotations.ApiModel;
@@ -9,11 +11,9 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: tiangong
@@ -29,7 +29,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "tiangong-rbac-user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name = "tiangong_rbac_user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 @DynamicUpdate
 @Where(clause = "yn=1")
 public class User extends BaseDomain {
@@ -68,7 +68,21 @@ public class User extends BaseDomain {
     private Date lockedTime;
 
     @ApiModelProperty("状态  0：禁用 1：正常  2：锁定")
+    @Column(name = "status")
     private Integer status;
 
+
+    @ApiModelProperty("部门id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "dept_id")
+    @JsonBackReference
+    private Dept dept;
+
+    @ApiModelProperty("用户角色")
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "tiangong_rbac_user_role"
+            , joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private List<Role> roles;
 
 }

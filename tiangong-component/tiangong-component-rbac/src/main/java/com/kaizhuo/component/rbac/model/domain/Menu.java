@@ -1,6 +1,9 @@
 package com.kaizhuo.component.rbac.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.common.collect.Lists;
 import com.kaizhuo.core.model.domain.BaseDomain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @program: tiangong
@@ -27,7 +31,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "tiangong-rbac-menu")
+@Table(name = "tiangong_rbac_menu")
 @DynamicUpdate
 @Where(clause = "yn = 1")
 public class Menu extends BaseDomain {
@@ -57,4 +61,26 @@ public class Menu extends BaseDomain {
 
     @ApiModelProperty("排序")
     private Integer orderNum;
+
+    @ApiModelProperty("菜单与资源")
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "tiangong_rbac_menu_resource",
+            joinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"))
+    private List<Resource> resources = Lists.newArrayList();
+
+    @ApiModelProperty("菜单与角色")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "menus")
+    private List<Role> roles = Lists.newArrayList();
+
+    @ApiModelProperty("子级")
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent")
+    private List<Menu> children;
+
+    public Menu(Long id) {
+        this.id = id;
+    }
 }
