@@ -59,4 +59,23 @@ public class R<T> {
         r.msg = msg;
         return r;
     }
+    public static R ok(Object t) {
+        R r = new R();
+        r.success = true;
+        r.result = t;
+        return r;
+    }
+
+    public static R ok(String msg) {
+        R r = new R();
+        r.success = true;
+        r.msg = msg;
+        return r;
+    }
+
+    public static R ok() {
+        R r = new R();
+        r.success = true;
+        return r;
+    }
 }

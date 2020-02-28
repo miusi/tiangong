@@ -1,7 +1,9 @@
 package com.kaizhuo.component.rbac.service;
 
 import com.kaizhuo.component.rbac.model.domain.Role;
+import com.kaizhuo.core.model.dto.PageModel;
 import com.kaizhuo.core.service.BaseService;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @program: tiangong
@@ -14,4 +16,21 @@ import com.kaizhuo.core.service.BaseService;
  * @modified: miaochen
  **/
 public interface RoleService extends BaseService<Role> {
+
+    /**
+     * 根据条件分页查询
+     *
+     * @param param     查询条件
+     * @param pageable  分页参数
+     * @return
+     */
+    PageModel<Role> findAll(Role param, Pageable pageable);
+
+    /**
+     * 查询角色详情
+     *
+     * @param id    角色id
+     * @return
+     */
+    Role detail(Long id);
 }

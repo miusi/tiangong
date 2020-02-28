@@ -14,4 +14,5 @@ import com.kaizhuo.data.jpa.JpaBaseRepository;
  * @modified: miaochen
  **/
 public interface RoleDao extends JpaBaseRepository<Role> {
+    Role findFirstByName(String name);
 }

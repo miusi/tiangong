@@ -14,4 +14,5 @@ import com.kaizhuo.data.jpa.JpaBaseRepository;
  * @modified: miaochen
  **/
 public interface UserDao extends JpaBaseRepository<User> {
+    User findFirstByUsername(String username);
 }
