@@ -3,91 +3,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version><!-- 2.2.0以上和admin-server 冲突，目前官方还未升级 -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.kaizhuo</groupId>
+        <artifactId>tiangong</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.kaizhuo</groupId>
     <artifactId>tiangong-monitor</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>tiangong-monitor</name>
-    <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
-    </properties>
+    <modules>
+        <module>tiangong-monitor-core</module>
+        <module>tiangong-monitor-agent</module>
+        <module>tiangong-monitor-home</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
+            <!--self-->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>com.kaizhuo</groupId>
+                <artifactId>tiangong-monitor-core</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <!--jdk-->
+            <dependency>
+                <groupId>jdk.tools</groupId>
+                <artifactId>jdk.tools</artifactId>
+                <version>1.8</version>
+                <scope>system</scope>
+                <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-mail</artifactId>-->
-        <!--</dependency>-->
-
-        <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <finalName>tiangong-monitor</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
