@@ -32,21 +32,20 @@
         <redisson.version>3.5.4</redisson.version>
         <hutool.version>4.4.2</hutool.version>
         <java-jwt.version>3.4.0</java-jwt.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <modules>
         <module>tiangong-core</module>
         <module>tiangong-data</module>
         <module>tiangong-component</module>
-        <module>tiangong-register</module>
-        <module>tiangong-config</module>
         <module>tiangong-monitor</module>
-        <module>tiangong-gateway</module>
         <module>tiangong-auth</module>
-        <module>tiangong-ironman</module>
         <module>tiangong-usercenter</module>
         <module>tiangong-security</module>
         <module>tiangong-cloud</module>
+        <module>tiangong-starter</module>
+        <module>tiangong-schedule</module>
 
     </modules>
 

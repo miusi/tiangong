@@ -7,15 +7,10 @@
         <artifactId>tiangong</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>tiangong-starter</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>tiangong-schedule</artifactId>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-    <modules>
-        <module>tiangong-spring-boot-starter</module>
-        <module>tiangong-spring-cloud-starter</module>
-    </modules>
 </project>

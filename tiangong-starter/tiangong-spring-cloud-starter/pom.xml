@@ -4,18 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.kaizhuo</groupId>
-        <artifactId>tiangong</artifactId>
+        <artifactId>tiangong-starter</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>tiangong-starter</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>tiangong-spring-cloud-starter</artifactId>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-    <modules>
-        <module>tiangong-spring-boot-starter</module>
-        <module>tiangong-spring-cloud-starter</module>
-    </modules>
+
+
 </project>
