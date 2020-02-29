@@ -18,5 +18,6 @@
     <modules>
         <module>tiangong-cloud-config</module>
         <module>tiangong-cloud-gateway</module>
+        <module>tiangong-cloud-register</module>
     </modules>
 </project>
