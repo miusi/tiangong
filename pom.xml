@@ -45,8 +45,8 @@
         <module>tiangong-auth</module>
         <module>tiangong-ironman</module>
         <module>tiangong-usercenter</module>
-        <module>tiangong-common</module>
         <module>tiangong-security</module>
+        <module>tiangong-cloud</module>
 
     </modules>
 
