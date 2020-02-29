@@ -1,0 +1,35 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8080
+  connection-timeout: 5000ms
+spring:
+  profiles:
+    active: "@profileActive@"
+  application:
+    name: tiangong-spring-boot-demo
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
+    servlet:
+      multipart:
+        max-file-size: 100MB
+        max-request-size: 100MB
+        enabled: true
+    session:
+      store-type: redis
+
+tiangong:
+  security:
+    noAuthPaths: []
+    loginUrl: /login
+    tokenExpiredTime: 300
+
+
+logging:
+  level:
+    root: debug
+  path: logs/
+  file: tiangong-spring-boot-demo.log

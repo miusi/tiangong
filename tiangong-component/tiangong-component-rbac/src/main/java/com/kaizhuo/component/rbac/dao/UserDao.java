@@ -2,6 +2,8 @@ package com.kaizhuo.component.rbac.dao;
 
 import com.kaizhuo.component.rbac.model.domain.User;
 import com.kaizhuo.data.jpa.JpaBaseRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  * @program: tiangong
@@ -13,6 +15,9 @@ import com.kaizhuo.data.jpa.JpaBaseRepository;
  * @version: 1.0.0
  * @modified: miaochen
  **/
+
+@Repository
 public interface UserDao extends JpaBaseRepository<User> {
+    @Query("select u from User u where u.username=:username")
     User findFirstByUsername(String username);
 }

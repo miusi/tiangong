@@ -13,6 +13,7 @@
     <modules>
         <module>tiangong-data-core</module>
         <module>tiangong-data-jpa</module>
+        <module>tiangong-data-redis</module>
     </modules>
 
     <dependencyManagement>
@@ -24,15 +25,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <finalName>${project.name}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

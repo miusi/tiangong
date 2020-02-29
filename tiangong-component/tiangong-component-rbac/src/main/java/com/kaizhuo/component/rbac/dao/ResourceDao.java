@@ -3,6 +3,7 @@ package com.kaizhuo.component.rbac.dao;
 import com.kaizhuo.component.rbac.model.domain.Resource;
 import com.kaizhuo.data.jpa.JpaBaseRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  * @version: 1.0.0
  * @modified: miaochen
  **/
+
+@Repository
 public interface ResourceDao extends JpaBaseRepository<Resource> {
     Resource findFirstByPath(String path);
 
