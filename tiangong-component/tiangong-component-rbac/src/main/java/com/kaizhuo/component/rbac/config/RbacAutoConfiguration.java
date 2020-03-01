@@ -16,12 +16,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @version: 1.0.0
  * @modified: miaochen
  **/
-@ComponentScan(basePackages = "com.kaizhuo.component.rbac.dao")
-@EntityScan({"com.kaizhuo.component.rbac"})
+@ComponentScan(basePackages = "com.kaizhuo.component.rbac")
+@EntityScan(basePackages = {"com.kaizhuo.component.rbac"})
 @EnableJpaRepositories(
         basePackages = {"com.kaizhuo.component.rbac"},
         repositoryFactoryBeanClass = JpaBaseRepositoryFactoryBean.class
 )
 @Configuration
-public class RabcAutoConfiguration {
+public class RbacAutoConfiguration {
 }

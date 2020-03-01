@@ -34,6 +34,7 @@ public class BaseDomain implements Serializable {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     protected Long id;
 
     @ApiModelProperty("创建时间")

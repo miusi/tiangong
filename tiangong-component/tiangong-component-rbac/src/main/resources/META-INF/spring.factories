@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.kaizhuo.component.rbac.config.RabcAutoConfiguration
+  com.kaizhuo.component.rbac.config.RbacAutoConfiguration

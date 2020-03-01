@@ -8,7 +8,11 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>tiangong-demo</artifactId>
+    <packaging>pom</packaging>
 
+    <modules>
+        <module>tiangong-spring-boot-demo</module>
+    </modules>
     <properties>
         <java.version>1.8</java.version>
     </properties>

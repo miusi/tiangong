@@ -3,6 +3,7 @@ package com.kaizhuo.spring.boot.starter.config;
 import com.kaizhuo.spring.boot.starter.interceptor.CorsInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @modified: miaochen
  **/
 @Configuration
-public class CorsInterceptorConfig  extends WebMvcConfigurerAdapter {
+public class CorsInterceptorConfig  extends WebMvcConfigurationSupport {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

@@ -15,6 +15,10 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.Specifications.where;
+
+
+
 /**
  * @program: tiangong
  * @package: com.kaizhuo.data.jpa
@@ -30,6 +34,6 @@ public interface JpaBaseRepository<T>  extends BaseRepository<T>, JpaRepository<
     default Page<T> findAll(Example example, List<Range<T>> ranges, Pageable pageable){
         Specification<T> byExample=new ByExampleSpecification<>(example);
         Specification<T> byRanges=new ByRangeSpecifition<>(ranges);
-        return findAll(Specification.where(byExample).and(byRanges),pageable);
+        return findAll(where(byExample).and(byRanges),pageable);
     }
 }
