@@ -8,8 +8,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>tiangong-component-swagger</artifactId>
-    <name>tiangong-component-swagger</name>
-    <description>swagger</description>
 
     <properties>
         <java.version>1.8</java.version>
