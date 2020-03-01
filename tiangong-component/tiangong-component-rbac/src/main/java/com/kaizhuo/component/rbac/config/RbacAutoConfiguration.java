@@ -23,5 +23,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         repositoryFactoryBeanClass = JpaBaseRepositoryFactoryBean.class
 )
 @Configuration
-public class RbacAutoConfiguration {
+public class RbacAutoConfiguration  {
 }

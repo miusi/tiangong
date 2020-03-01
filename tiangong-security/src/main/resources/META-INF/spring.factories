@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.kaizhuo.security.config.SecurityAutoConfiguration
+  com.kaizhuo.security.config.SecurityAutoConfiguration,\
+  

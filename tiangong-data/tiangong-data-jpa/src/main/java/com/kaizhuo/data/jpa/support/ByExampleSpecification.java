@@ -1,6 +1,5 @@
 package com.kaizhuo.data.jpa.support;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.convert.QueryByExamplePredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
@@ -26,12 +25,12 @@ public class ByExampleSpecification<T> implements Specification<T> {
 
     private final Example<T> example;
 
-    public ByExampleSpecification(@NotNull Example<T> example) {
+    public ByExampleSpecification(Example<T> example) {
         this.example = example;
     }
 
     @Override
-    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, @NotNull CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery,CriteriaBuilder criteriaBuilder) {
         return QueryByExamplePredicateBuilder.getPredicate(root, criteriaBuilder, example);
     }
 }

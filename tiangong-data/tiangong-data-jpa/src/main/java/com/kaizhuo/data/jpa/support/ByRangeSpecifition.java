@@ -1,6 +1,5 @@
 package com.kaizhuo.data.jpa.support;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -56,7 +55,7 @@ public class ByRangeSpecifition<T> implements Specification<T> {
         return predicates.isEmpty() ? criteriaBuilder.conjunction() : criteriaBuilder.and(predicateArray);
     }
 
-    private Predicate buildRangePredicate(@NotNull Range<T> range, @NotNull Root<T> root, @NotNull CriteriaBuilder builder) {
+    private Predicate buildRangePredicate(Range<T> range,Root<T> root,CriteriaBuilder builder) {
         if (range.isBetween()) {
             return builder.between(root.get(range.getField()), range.getFrom(), range.getTo());
         } else if (range.isFromSet()) {

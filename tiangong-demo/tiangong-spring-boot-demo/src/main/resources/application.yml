@@ -6,8 +6,6 @@ server:
   port: 8080
   connection-timeout: 5000ms
 spring:
-  profiles:
-    active: "@profileActive@"
   application:
     name: tiangong-spring-boot-demo
     jackson:
@@ -20,9 +18,30 @@ spring:
         enabled: true
     session:
       store-type: redis
-
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+    #schema: "classpath*:db/schema.sql"
+    #data: "classpath*:db/data.sql"
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
+        settings:
+          trace: true
+          web-allow-others: true
+    jpa:
+      database: h2
+      show-sql: true
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        ddl-auto: update
 tiangong:
   security:
+    enbale: true
     noAuthPaths: []
     loginUrl: /login
     tokenExpiredTime: 300

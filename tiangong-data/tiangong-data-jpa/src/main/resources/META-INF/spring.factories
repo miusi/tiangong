@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.kaizhuo.data.jpa.JpaBaseRepositoryAutoConfiguration
+  com.kaizhuo.data.jpa.JpaBaseRepositoryAutoConfiguration,\
+  com.kaizhuo.c

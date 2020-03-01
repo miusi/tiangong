@@ -57,7 +57,7 @@ public class JpaBaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpa
                 //获取ID
                 ID entityId = (ID) entityInformation.getId(entity);
                 //查询数据库数据
-                T dataFromDb = findOne(entityId);
+                T dataFromDb = getOne(entityId);
                 //获取为空的属性-覆盖的时候忽略
                 String[] ignoreProperties = getNotNullProperties(entity);
                 //用数据库对象对应的信息覆盖实体中属性为null的信息
