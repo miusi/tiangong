@@ -1,6 +1,9 @@
 package com.kaizhuo.data.jpa;
 
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
@@ -15,5 +18,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  **/
 @Configuration
 @EnableJpaRepositories(repositoryBaseClass = JpaBaseRepositoryFactoryBean.class)
+@ComponentScan(basePackages = "com.kaizhuo.data.jpa")
 public class JpaBaseRepositoryAutoConfiguration {
 }

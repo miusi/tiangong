@@ -17,7 +17,6 @@ import java.util.List;
  * @version: 1.0.0
  * @modified: miaochen
  **/
-@Repository
 public interface MenuDao extends JpaBaseRepository<Menu> {
     @Query("select m from Menu m where m.parent=:parent")
     List<Menu> findAllByParent(Menu parent);

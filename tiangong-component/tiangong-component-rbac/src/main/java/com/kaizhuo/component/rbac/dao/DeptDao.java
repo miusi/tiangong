@@ -17,7 +17,6 @@ import java.util.List;
  * @version: 1.0.0
  * @modified: miaochen
  **/
-@Repository
 public interface DeptDao extends JpaBaseRepository<Dept> {
 
     @Query("select d from Dept d where d.parent=:parent")

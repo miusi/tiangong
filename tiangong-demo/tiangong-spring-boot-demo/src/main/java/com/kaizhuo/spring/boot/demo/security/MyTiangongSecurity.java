@@ -7,6 +7,8 @@ import com.kaizhuo.core.security.TiangongSecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * @program: tiangong
  * @package: com.kaizhuo.spring.boot.demo.security

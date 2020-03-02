@@ -4,7 +4,4 @@ org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
 org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,\
 org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration,\
 org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration,\
-org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration,\
-  com.kaizhuo.component.rbac.config.RbacAutoConfiguration,\
-  com.kaizhuo.component.swagger.SwaggerAutoConfiguration,\
-  com.kaizhuo.spring.boot.starter.config.ExceptionAutoConfig
+org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration

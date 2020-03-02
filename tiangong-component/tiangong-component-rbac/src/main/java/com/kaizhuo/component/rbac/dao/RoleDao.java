@@ -14,8 +14,6 @@ import org.springframework.stereotype.Repository;
  * @version: 1.0.0
  * @modified: miaochen
  **/
-
-@Repository
 public interface RoleDao extends JpaBaseRepository<Role> {
     Role findFirstByName(String name);
 }

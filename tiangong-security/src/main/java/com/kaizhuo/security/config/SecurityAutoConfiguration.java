@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * @program: tiangong
@@ -25,7 +26,12 @@ import org.springframework.context.annotation.Configuration;
  **/
 @ComponentScan(value = {"com.kaizhuo.security"})
 @Configuration
+@Import(
+        SecurityProperties.class
+)
 public class SecurityAutoConfiguration implements BeanFactoryAware {
+
+    private
 
     @Bean
     @ConditionalOnMissingBean

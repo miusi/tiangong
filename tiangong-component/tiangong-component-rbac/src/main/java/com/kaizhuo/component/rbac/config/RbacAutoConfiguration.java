@@ -1,6 +1,8 @@
 package com.kaizhuo.component.rbac.config;
 
+import com.kaizhuo.data.jpa.JpaBaseRepositoryAutoConfiguration;
 import com.kaizhuo.data.jpa.JpaBaseRepositoryFactoryBean;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,5 +25,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         repositoryFactoryBeanClass = JpaBaseRepositoryFactoryBean.class
 )
 @Configuration
+@AutoConfigureAfter(JpaBaseRepositoryAutoConfiguration.class)
 public class RbacAutoConfiguration  {
 }
