@@ -45,6 +45,12 @@ tiangong:
     noAuthPaths: []
     loginUrl: /login
     tokenExpiredTime: 300
+  swagger:
+    enable: true
+    contact:
+      name: godric
+      url: miaochen.wang
+      email: miaochengod@outlook.com
 
 
 logging:
@@ -52,3 +58,5 @@ logging:
     root: info
   path: logs/
   file: tiangong-spring-boot-demo.log
+
+

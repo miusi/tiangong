@@ -27,5 +27,5 @@ public class SwaggerConfiguration {
     /**
      * 可用key
      */
-    public static final String enableKey = "tiangong.swagger.enabled";
+    public static final String enableKey = "tiangong.swagger.enable";
 }
