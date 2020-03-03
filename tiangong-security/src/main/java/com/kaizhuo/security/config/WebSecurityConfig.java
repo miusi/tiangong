@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.header.Header;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
@@ -107,7 +108,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 new Header("Access-control-Allow-Origin", "*"),
                 new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
                 .and()
-                .addFilterAfter(new OptionRequestFilter(), CorsFilter.class)
 
                 .formLogin()
                 //登录成功
@@ -122,6 +122,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //注销成功
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
+        http.addFilterAfter(new OptionRequestFilter(), CsrfFilter.class);
         //记住我
         http.rememberMe().rememberMeParameter("rememberMe").userDetailsService(userDetailsService).tokenValiditySeconds(securityProperties.getTokenExpiredTime());
         //无权限
@@ -129,7 +130,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //JWT
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(jwtAuthenticationRefreshFilter,UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(jwtAuthenticationRefreshFilter, UsernamePasswordAuthenticationFilter.class);
 
         /***跨域*/
 //        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry

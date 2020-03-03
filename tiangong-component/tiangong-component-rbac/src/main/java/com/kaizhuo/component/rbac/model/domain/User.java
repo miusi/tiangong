@@ -37,44 +37,36 @@ public class User extends BaseDomain {
     private static final long serialVersionUID = 4345940515014716863L;
 
     @ApiModelProperty("用户名")
-    @Column(name = "username")
     private String username;
 
     @ApiModelProperty("密码")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "password")
     private String password;
     @ApiModelProperty("盐")
     private String salt;
 
     @ApiModelProperty("真实姓名")
-    @Column(name = "realname")
     private String realName;
 
     @ApiModelProperty("邮箱")
-    @Column(name = "email")
     private String email;
 
     @ApiModelProperty("手机号")
-    @Column(name = "mobile")
     private String mobile;
 
     @ApiModelProperty("尝试次数")
-    @Column(name = "tried_times")
     private Integer triedTimes;
 
     @ApiModelProperty("锁定时间")
-    @Column(name = "locked_time")
     private Date lockedTime;
 
     @ApiModelProperty("状态  0：禁用 1：正常  2：锁定")
-    @Column(name = "status")
     private Integer status;
 
 
     @ApiModelProperty("部门id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "dept_id")
+    @JoinColumn(name = "dept_id")
     @JsonBackReference
     private Dept dept;
 

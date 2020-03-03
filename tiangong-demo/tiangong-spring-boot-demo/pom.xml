@@ -16,6 +16,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.kaizhuo</groupId>
+			<artifactId>tiangong-core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kaizhuo</groupId>
 			<artifactId>tiangong-spring-boot-starter</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>

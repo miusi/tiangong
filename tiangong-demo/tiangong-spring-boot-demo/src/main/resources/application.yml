@@ -41,7 +41,7 @@ spring:
         ddl-auto: update
 tiangong:
   security:
-    enbale: true
+    enbale: false
     noAuthPaths: []
     loginUrl: /login
     tokenExpiredTime: 300
@@ -49,6 +49,6 @@ tiangong:
 
 logging:
   level:
-    root: debug
+    root: info
   path: logs/
   file: tiangong-spring-boot-demo.log

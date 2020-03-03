@@ -17,6 +17,7 @@ import java.util.List;
  * @version: 1.0.0
  * @modified: miaochen
  **/
+@Repository
 public interface ResourceDao extends JpaBaseRepository<Resource> {
     Resource findFirstByPath(String path);
 

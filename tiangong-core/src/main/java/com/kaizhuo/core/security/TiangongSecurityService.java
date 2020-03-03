@@ -1,5 +1,8 @@
 package com.kaizhuo.core.security;
 
+/**
+ * @author miaochen
+ */
 public interface TiangongSecurityService {
     /**
      * 根据用户名，判断该URL是否有访问权限

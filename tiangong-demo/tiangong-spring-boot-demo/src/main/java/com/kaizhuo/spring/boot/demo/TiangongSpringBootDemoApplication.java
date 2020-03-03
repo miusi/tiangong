@@ -14,8 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @Slf4j
 @EnableJpaAuditing
-@ComponentScan(basePackages = "com.kaizhuo.component.rbac")
-@EntityScan(basePackages = {"com.kaizhuo.component.rbac"})
+@ComponentScan(basePackages = "com.kaizhuo")
 public class TiangongSpringBootDemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

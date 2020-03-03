@@ -29,6 +29,6 @@ public class JpaBaseRepositoryAutoConfiguration {
 
     @PostConstruct
     public void postConstruct(){
-        logger.info("JpaBaseRepository MODULE LOADED!");
+        System.out.println("JpaBaseRepository MODULE LOADED!");
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @version: 1.0.0
  * @modified: miaochen
  **/
+@Repository
 public interface UserDao extends JpaBaseRepository<User> {
-    @Query("select u from User u where u.username=:username")
     User findFirstByUsername(String username);
 }
