@@ -5,6 +5,8 @@ import com.kaizhuo.security.auth.common.TiangongAuthenticationEntryPoint;
 import com.kaizhuo.security.auth.common.TiangongAuthenticationFailureHandler;
 import com.kaizhuo.security.auth.common.TiangongLogoutSuccessHandler;
 import com.kaizhuo.security.auth.jwt.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -13,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @program: tiangong
@@ -30,8 +34,12 @@ import org.springframework.context.annotation.Import;
         SecurityProperties.class
 )
 public class SecurityAutoConfiguration implements BeanFactoryAware {
+    private static final Logger logger = LoggerFactory.getLogger(SecurityAutoConfiguration.class);
 
-    private
+    @PostConstruct
+    public void postConstruct(){
+        logger.info("Security MODULE Loaded");
+    }
 
     @Bean
     @ConditionalOnMissingBean

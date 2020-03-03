@@ -2,11 +2,15 @@ package com.kaizhuo.component.rbac.config;
 
 import com.kaizhuo.data.jpa.JpaBaseRepositoryAutoConfiguration;
 import com.kaizhuo.data.jpa.JpaBaseRepositoryFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @program: tiangong
@@ -25,6 +29,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         repositoryFactoryBeanClass = JpaBaseRepositoryFactoryBean.class
 )
 @Configuration
-@AutoConfigureAfter(JpaBaseRepositoryAutoConfiguration.class)
 public class RbacAutoConfiguration  {
+    private static final Logger logger = LoggerFactory.getLogger(RbacAutoConfiguration.class);
+
+
+    @PostConstruct
+    public void postConstruct(){
+        logger.info("Rbac MODULE LOADED!");
+    }
+
 }

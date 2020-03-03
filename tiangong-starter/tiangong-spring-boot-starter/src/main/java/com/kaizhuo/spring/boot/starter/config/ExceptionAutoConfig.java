@@ -1,9 +1,12 @@
 package com.kaizhuo.spring.boot.starter.config;
 
 import com.kaizhuo.spring.boot.starter.exception.CommonExceptionHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @program: tiangong
@@ -16,7 +19,13 @@ import org.springframework.context.annotation.Configuration;
  * @modified: miaochen
  **/
 @Configuration
+@Slf4j
 public class ExceptionAutoConfig {
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("Exception MODULE LOAD!");
+    }
 
     @Bean
     @ConditionalOnMissingBean({CommonExceptionHandler.class})
