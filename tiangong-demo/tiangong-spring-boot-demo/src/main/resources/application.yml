@@ -19,43 +19,50 @@ spring:
     session:
       store-type: redis
   datasource:
+    # 使用H2数据库
+    platform: h2
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
     #schema: "classpath*:db/schema.sql"
     #data: "classpath*:db/data.sql"
-    h2:
-      console:
-        enabled: true
-        path: /h2-console
-        settings:
-          trace: true
-          web-allow-others: true
-    jpa:
-      database: h2
-      show-sql: true
-      hibernate:
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: true
+        web-allow-others: true
+  jpa:
+    # 是否生成ddl语句
+    generate-ddl: false
+    # 是否打印sql语句
+    show-sql: true
+    # 自动生成ddl，由于指定了具体的ddl，此处设置为none
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 tiangong:
   security:
-    enbale: false
-    noAuthPaths: []
+    noAuthPaths: ["/h2-console/**"]
     loginUrl: /login
     tokenExpiredTime: 300
   swagger:
     enable: true
     contact:
       name: godric
-      url: miaochen.wang
+      url: http://miaochen.wang
       email: miaochengod@outlook.com
 
 
 logging:
   level:
-    root: info
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.type.descriptor.sql.BasicExtractor: trace
   path: logs/
   file: tiangong-spring-boot-demo.log
 
