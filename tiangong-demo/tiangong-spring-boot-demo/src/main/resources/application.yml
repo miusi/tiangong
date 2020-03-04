@@ -35,13 +35,10 @@ spring:
         trace: true
         web-allow-others: true
   jpa:
-    # 是否生成ddl语句
-    generate-ddl: false
     # 是否打印sql语句
     show-sql: true
-    # 自动生成ddl，由于指定了具体的ddl，此处设置为none
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 tiangong:

@@ -30,7 +30,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "tiangon_rbac_dept")
+@Table(name = "tiangong_rbac_dept")
 @DynamicUpdate
 @Where(clause = "yn = 1")
 public class Dept extends BaseDomain {
