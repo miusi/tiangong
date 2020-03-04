@@ -1,10 +1,12 @@
 spring:
   datasource:
+    # 使用H2数据库
+    platform: h2
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
-    #schema: "classpath*:db/schema.sql"
+    schema: "classpath*:db/schema.sql"
     #data: "classpath*:db/data.sql"
   h2:
     console:
@@ -14,12 +16,20 @@ spring:
         trace: true
         web-allow-others: true
   jpa:
-    database: h2
+    # 是否打印sql语句
     show-sql: true
     hibernate:
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: update
 tiangong:
   security:
+    noAuthPaths: ["/h2-console/**"]
+    loginUrl: /login
+    tokenExpiredTime: 300
+  swagger:
     enable: true
+    contact:
+      name: godric
+      url: http://miaochen.wang
+      email: miaochengod@outlook.com
