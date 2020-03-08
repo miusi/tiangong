@@ -63,11 +63,6 @@
             </dependency>
             <dependency>
                 <groupId>com.kaizhuo</groupId>
-                <artifactId>tiangong-data-jpa</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kaizhuo</groupId>
                 <artifactId>tiangong-component</artifactId>
                 <version>${project.version}</version>
             </dependency>

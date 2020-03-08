@@ -2,11 +2,10 @@ package com.kaizhuo.component.rbac.mybatis.service.impl;
 
 import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kaizhuo.component.rbac.mybatis.mapper.UserMapper;
 import com.kaizhuo.component.rbac.mybatis.pojo.User;
-import com.kaizhuo.component.rbac.mybatis.qo.UserQO;
+import com.kaizhuo.component.rbac.mybatis.qo.UserQueryRequest;
 import com.kaizhuo.component.rbac.mybatis.service.UserService;
 import com.kaizhuo.component.rbac.mybatis.vo.UserVo;
 import com.kaizhuo.core.model.domain.BaseService;
@@ -31,7 +30,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public Page<UserVo> findWithPage(UserQO qo) {
+    public Page<UserVo> findWithPage(UserQueryRequest qo) {
         return userMapper.findWithPage(qo.getPage(), qo);
     }
 

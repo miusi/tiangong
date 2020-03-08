@@ -6,8 +6,6 @@ import com.kaizhuo.core.exception.AppException;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
-import javax.persistence.Table;
-
 /**
  * @program: tiangong
  * @package: com.kaizhuo.core.model.domain

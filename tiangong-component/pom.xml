@@ -18,7 +18,6 @@
         <module>tiangong-component-message</module>
         <module>tiangong-component-oss</module>
         <module>tiangong-component-ops</module>
-        <module>tiangong-component-rbac</module>
         <module>tiangong-component-rbac-mybatis</module>
     </modules>
 

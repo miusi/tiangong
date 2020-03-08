@@ -28,6 +28,7 @@ public class DeptController {
     private DeptService deptService;
 
     @ApiOperation("获取部门树")
+    @GetMapping("all")
     public R<TreeNode> selectAll(){
         return R.ok(deptService.selectAll());
     }

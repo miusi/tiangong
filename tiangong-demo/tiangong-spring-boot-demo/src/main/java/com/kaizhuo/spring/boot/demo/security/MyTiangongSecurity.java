@@ -1,7 +1,7 @@
 package com.kaizhuo.spring.boot.demo.security;
 
-import com.kaizhuo.component.rbac.dao.UserDao;
-import com.kaizhuo.component.rbac.model.domain.User;
+import com.kaizhuo.component.rbac.mybatis.pojo.User;
+import com.kaizhuo.component.rbac.mybatis.service.UserService;
 import com.kaizhuo.core.security.TiangongSecurityService;
 import com.kaizhuo.core.security.TiangongSecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 public class MyTiangongSecurity implements TiangongSecurityService {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
 
     /**
@@ -49,7 +49,7 @@ public class MyTiangongSecurity implements TiangongSecurityService {
     public TiangongSecurityUser findFirstByUsername(String username) {
         TiangongSecurityUser securityUser=new TiangongSecurityUser();
         // 此处应根据自身业务情况进行
-        User user =userDao.findFirstByUsername(username);
+        User user =userService.selectByUserName(username);
         if(user!=null){
             securityUser.setUsername(user.getUsername());
             securityUser.setPassword(user.getPassword());

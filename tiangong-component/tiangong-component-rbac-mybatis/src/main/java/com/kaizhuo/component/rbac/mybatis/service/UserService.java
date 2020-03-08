@@ -3,7 +3,7 @@ package com.kaizhuo.component.rbac.mybatis.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kaizhuo.component.rbac.mybatis.pojo.User;
-import com.kaizhuo.component.rbac.mybatis.qo.UserQO;
+import com.kaizhuo.component.rbac.mybatis.qo.UserQueryRequest;
 import com.kaizhuo.component.rbac.mybatis.vo.UserVo;
 
 /**
@@ -22,7 +22,7 @@ public interface UserService extends IService<User> {
      * @param qo
      * @return
      */
-    Page<UserVo> findWithPage(UserQO qo);
+    Page<UserVo> findWithPage(UserQueryRequest qo);
 
     /**
      * 主键搜索

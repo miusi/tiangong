@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaizhuo.component.rbac.mybatis.mapper.PermissionMapper">
+    <!-- 查询某个用户拥有的权限 -->
+    <select id="selectByUserId" resultType="String">
+        select distinct P.code
+        from tiangong_permission P
+                 left join tiangong_role_permission RP on RP.permissionId = P.id
+                 left join tiangong_role R on R.id = RP.roleId
+                 left join tiangong_user_role UR on UR.roleId = R.id
+                 left join tiangong_user U on U.id = UR.userId
+        where U.id = #{userId}
+    </select>
+</mapper>

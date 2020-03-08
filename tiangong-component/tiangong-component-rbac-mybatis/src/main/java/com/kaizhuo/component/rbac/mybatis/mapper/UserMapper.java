@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kaizhuo.component.rbac.mybatis.pojo.Role;
 import com.kaizhuo.component.rbac.mybatis.pojo.User;
-import com.kaizhuo.component.rbac.mybatis.qo.UserQO;
+import com.kaizhuo.component.rbac.mybatis.qo.UserQueryRequest;
 import com.kaizhuo.component.rbac.mybatis.vo.UserVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,7 +23,7 @@ import java.util.List;
  **/
 @Repository
 public interface UserMapper extends BaseMapper<User> {
-    Page<UserVo> findWithPage(Page<UserVo> page, @Param("qo")UserQO qo);
+    Page<UserVo> findWithPage(Page<UserVo> page, @Param("qo") UserQueryRequest qo);
 
     UserVo findById(@Param("id") Integer id);
 

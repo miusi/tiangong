@@ -2,13 +2,12 @@ package com.kaizhuo.component.rbac.mybatis.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kaizhuo.component.rbac.mybatis.pojo.User;
-import com.kaizhuo.component.rbac.mybatis.qo.UserQO;
+import com.kaizhuo.component.rbac.mybatis.qo.UserQueryRequest;
 import com.kaizhuo.component.rbac.mybatis.service.UserService;
 import com.kaizhuo.component.rbac.mybatis.vo.UserVo;
 import com.kaizhuo.core.model.dto.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ public class UserController {
 
     @ApiOperation("获取用户列表")
     @GetMapping("/page")
-    public Page<UserVo> findWithPage(UserQO qo){
+    public Page<UserVo> findWithPage(UserQueryRequest qo){
         return userService.findWithPage(qo);
     }
 

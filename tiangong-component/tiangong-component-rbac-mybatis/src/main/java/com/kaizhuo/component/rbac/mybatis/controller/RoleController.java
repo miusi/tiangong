@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kaizhuo.component.rbac.mybatis.pojo.Role;
 import com.kaizhuo.component.rbac.mybatis.service.RoleService;
-import com.kaizhuo.core.model.domain.BaseQO;
+import com.kaizhuo.core.model.domain.BaseQueryRequest;
 import com.kaizhuo.core.model.dto.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ public class RoleController {
 
     @ApiOperation("获取角色列表")
     @GetMapping("page")
-    public R<Page<Role>> page(BaseQO qo) {
+    public R<Page<Role>> page(BaseQueryRequest qo) {
         IPage<Role> page = roleService.page(new Page<>(qo.getPageNum(), qo.getPageSize()));
         return R.ok(page);
     }

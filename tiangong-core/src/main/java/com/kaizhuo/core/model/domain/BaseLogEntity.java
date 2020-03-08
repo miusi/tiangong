@@ -32,7 +32,7 @@ public class BaseLogEntity extends BaseEntity {
 
     @ApiModelProperty("创建时间")
     @TableField(fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 
     @ApiModelProperty("修改人")
     @TableField(fill = FieldFill.INSERT_UPDATE)
@@ -40,5 +40,5 @@ public class BaseLogEntity extends BaseEntity {
 
     @ApiModelProperty("更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updatedDate;
+    private LocalDateTime updateDate;
 }

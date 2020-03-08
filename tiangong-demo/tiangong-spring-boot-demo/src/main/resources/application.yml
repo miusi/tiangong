@@ -11,16 +11,6 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    database: mysql
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   application:
     name: tiangong-spring-boot-demo
     jackson:
@@ -33,6 +23,13 @@ spring:
         enabled: true
     session:
       store-type: redis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      id-type: AUTO
 
 tiangong:
   security:
@@ -55,5 +52,3 @@ logging:
     org.hibernate.type.descriptor.sql.BasicExtractor: trace
   path: logs/
   file: tiangong-spring-boot-demo.log
-
-

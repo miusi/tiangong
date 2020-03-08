@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaizhuo.component.rbac.mybatis.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.kaizhuo.component.rbac.mybatis.pojo.Role">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="remarks" jdbcType="VARCHAR" property="note"/>
+        <collection column="id" property="permissions" ofType="com.kaizhuo.component.rbac.mybatis.pojo.Permission"
+                    columnPrefix="permission_">
+            <id column="id" property="id"/><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
+            <result column="code" property="code"/><!-- property对应JavaBean中的属性名 -->
+            <result column="name" property="name"/>
+        </collection>
+    </resultMap>
+
+    <!-- 查询某个角色和包含的权限 -->
+    <select id="getById" resultMap="BaseResultMap">
+        select role.*,
+               permission.id   as permission_id,
+               permission.code as permission_code,
+               permission.name as permission_name
+        from tiangong_role
+                 left join tiangong_role_permission rolePermission on role.id = rolePermission.roleId
+                 left join tiangong_permission on permission.id = rolePermission.permissionId
+        where role.id = #{id}
+    </select>
+
+    <!-- 批量插入某个role包含该的权限到RolePermission -->
+    <insert id="insertRolePermission">
+        insert into
+        tiangong_role_permission
+        (roleId, permissionId)
+        values
+        <foreach collection="permissions" item="permission" separator=",">
+            ( #{roleId},#{permission.id} )
+        </foreach>
+    </insert>
+
+    <!-- 删除某个role对应的RolePermission -->
+    <delete id="deleteRolePermission" parameterType="int">
+        delete
+        from tiangong_role_permission
+        where permissionId = #{roleId}
+    </delete>
+</mapper>
