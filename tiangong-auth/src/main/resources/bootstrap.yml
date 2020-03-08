@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: auth
-  cloud:
-    config:
-      uri: http://localhost:8888
-      fail-fast: true
-      password: testpassword
-      username: user

@@ -36,7 +36,10 @@ public class MyTiangongSecurity implements TiangongSecurityService {
     @Override
     public boolean isUrlPermissionByName(String username, String url) {
         //todo 判断权限
-        return true;
+        if ("admin".equals(username)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -47,10 +50,10 @@ public class MyTiangongSecurity implements TiangongSecurityService {
      */
     @Override
     public TiangongSecurityUser findFirstByUsername(String username) {
-        TiangongSecurityUser securityUser=new TiangongSecurityUser();
+        TiangongSecurityUser securityUser = new TiangongSecurityUser();
         // 此处应根据自身业务情况进行
-        User user =userService.selectByUserName(username);
-        if(user!=null){
+        User user = userService.selectByUserName(username);
+        if (user != null) {
             securityUser.setUsername(user.getUsername());
             securityUser.setPassword(user.getPassword());
         }

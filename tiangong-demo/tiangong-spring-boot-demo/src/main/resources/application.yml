@@ -3,6 +3,8 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
+  servlet:
+    context-path: /demo
   port: 8081
   connection-timeout: 5000ms
 spring:
@@ -33,7 +35,7 @@ mybatis-plus:
 
 tiangong:
   security:
-    noAuthPaths: []
+    noAuthPaths: ["/index.html"]
     loginUrl: /login
     tokenExpiredTime: 300
   swagger:
@@ -46,9 +48,6 @@ tiangong:
 
 logging:
   level:
-    root: INFO
-    org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-    org.hibernate.type.descriptor.sql.BasicExtractor: trace
+    root: info
   path: logs/
   file: tiangong-spring-boot-demo.log

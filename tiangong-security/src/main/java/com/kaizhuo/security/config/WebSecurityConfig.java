@@ -1,13 +1,12 @@
 package com.kaizhuo.security.config;
 
 import com.kaizhuo.security.auth.common.*;
-import com.kaizhuo.security.auth.jwt.JwtAuthenticationProvider;
-import com.kaizhuo.security.auth.jwt.JwtAuthenticationRefreshFilter;
-import com.kaizhuo.security.auth.jwt.JwtAuthenticationSuccessHandler;
-import com.kaizhuo.security.auth.jwt.JwtAuthenticationTokenFilter;
+import com.kaizhuo.security.auth.jwt.*;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -62,7 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationRefreshFilter jwtAuthenticationRefreshFilter;
-
+    @Autowired
+    private AuthenticationManager authenticationManager;
     /**
      * 定义认证用户信息获取来源，密码校验规则等
      *
@@ -97,8 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 //未登录
-                .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                .and()
+                //.httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                //.and()
                 .authorizeRequests()
                 //rbac权限
                 .anyRequest()
@@ -109,12 +109,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 new Header("Access-control-Allow-Origin", "*"),
                 new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
                 .and()
-
                 .formLogin()
+                .loginPage("/index.html").loginProcessingUrl("/login")
                 //登录成功
                 .successHandler(authenticationSuccessHandler)
                 //登录失败
                 .failureHandler(authenticationFailureHandler)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/index.html", "/login", "/resources/**", "/static/**")
                 .permitAll()
                 .and()
                 .cors()
@@ -131,6 +134,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //JWT
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(externalAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(jwtAuthenticationRefreshFilter, UsernamePasswordAuthenticationFilter.class);
 
         /***跨域*/
@@ -138,5 +142,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                = http.authorizeRequests();
 //        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
+    }
+    @Bean
+    public JwtAuthenticationProcessingFilter externalAuthenticationProcessingFilter() {
+        // 自定义认证filter，需要实现CustomAuthenticationProcessingFilter和CustomerAuthenticationProvider
+        // filter将过滤url并把认证信息塞入authentication作为CustomerAuthenticationProvider.authenticate的入参
+        JwtAuthenticationProcessingFilter filter = new JwtAuthenticationProcessingFilter();
+
+        // 默认自定义认证方式grant_type为authorization_code方式，如果直接返回内容，则需自定义success和fail handler
+        // filter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler());
+        // filter.setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
+
+        filter.setAuthenticationManager(authenticationManager);
+        return filter;
+    }
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
