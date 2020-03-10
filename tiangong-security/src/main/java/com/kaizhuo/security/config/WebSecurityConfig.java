@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationRefreshFilter jwtAuthenticationRefreshFilter;
+
     @Autowired
     private AuthenticationManager authenticationManager;
     /**
@@ -95,37 +96,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http    //禁用跨站csrf攻击防御
+                .csrf().disable()
                 //未登录
                 //.httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                 //.and()
+                .formLogin()
+                //用户未登录时，访问任何资源都转跳到该路径，即登录页面,DefaultLoginPageGeneratingFilter
+                .loginPage("/index.html")
+                //登录表单form中action的地址，也就是处理认证请求的路径
+                .loginProcessingUrl("/login")
+                //登录成功
+                //.successHandler(authenticationSuccessHandler)
+                //登录失败
+                .failureHandler(authenticationFailureHandler)
+                .and()
                 .authorizeRequests()
+                //不需要通过登录验证就可以被访问的资源路径
+                .antMatchers("/index.html", "/login", "/resources/**", "/static/**")
+                .permitAll()
                 //rbac权限
                 .anyRequest()
-                .access("@tiangongAuthorityService.hasPermission(request,authentication)")
+                .authenticated()
+                //.access("@tiangongAuthorityService.hasPermission(request,authentication)")
                 //跨域
                 .and()
                 .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
                 new Header("Access-control-Allow-Origin", "*"),
                 new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
-                .and()
-                .formLogin()
-                .loginPage("/index.html").loginProcessingUrl("/login")
-                //登录成功
-                .successHandler(authenticationSuccessHandler)
-                //登录失败
-                .failureHandler(authenticationFailureHandler)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/index.html", "/login", "/resources/**", "/static/**")
-                .permitAll()
+
                 .and()
                 .cors()
                 .and()
                 .logout()
+                //.logoutUrl()
                 //注销成功
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
+
         http.addFilterAfter(new OptionRequestFilter(), CsrfFilter.class);
         //记住我
         http.rememberMe().rememberMeParameter("rememberMe").userDetailsService(userDetailsService).tokenValiditySeconds(securityProperties.getTokenExpiredTime());
@@ -134,7 +142,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //JWT
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(externalAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class)
+                //直接使用内部的OAUTH_TOKEN_URL
+                //.addFilterAfter(externalAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(jwtAuthenticationRefreshFilter, UsernamePasswordAuthenticationFilter.class);
 
         /***跨域*/
@@ -143,6 +152,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
     }
+
     @Bean
     public JwtAuthenticationProcessingFilter externalAuthenticationProcessingFilter() {
         // 自定义认证filter，需要实现CustomAuthenticationProcessingFilter和CustomerAuthenticationProvider

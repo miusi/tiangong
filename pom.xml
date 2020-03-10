@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
+        <spring-security-oauth.version>2.0.5.RELEASE</spring-security-oauth.version>
         <spring-data-releasetrain.version>Ingalls-SR3</spring-data-releasetrain.version>
         <springfox.version>2.8.0</springfox.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
@@ -115,6 +116,11 @@
                 <type>pom</type>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${spring-security-oauth.version}</version>
+            </dependency>
 
             <!--swagger -->
             <dependency>

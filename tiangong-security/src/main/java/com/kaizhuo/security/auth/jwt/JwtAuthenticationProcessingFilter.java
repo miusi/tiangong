@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY;
+import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
+
 /**
  * @program: tiangong
  * @package: com.kaizhuo.security.auth.jwt
@@ -50,8 +53,8 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
             throw  new AuthenticationServiceException("Authentication method not supported: " + httpServletRequest.getMethod());
         }
 
-        String username=httpServletRequest.getParameter(USERNAME);
-        String password=httpServletRequest.getParameter(CREDENTIALS);
+        String username=httpServletRequest.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
+        String password=httpServletRequest.getParameter(SPRING_SECURITY_FORM_PASSWORD_KEY);
         String encodePwd = SecureUtil.sha256(SecureUtil.sha256(username) + SecureUtil.sha256(password));
         UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
         if (!userDetails.getPassword().equals(encodePwd)) {
