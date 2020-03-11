@@ -1,4 +1,4 @@
-package com.kaizhuo.security.auth.common;
+package com.kaizhuo.security.service.authentication.filter;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 

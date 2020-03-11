@@ -1,12 +1,13 @@
-package com.kaizhuo.security.auth.jwt;
+package com.kaizhuo.security.service.authentication.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.kaizhuo.core.model.dto.R;
 import com.kaizhuo.security.config.SecurityProperties;
+import com.kaizhuo.security.service.authentication.TiangongAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -29,7 +30,7 @@ import java.util.Map;
  **/
 @Slf4j
 @Component
-public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class TiangongAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
@@ -38,7 +39,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
-        DecodedJWT jwt = ((JwtAuthenticationToken) authentication).getToken();
+        DecodedJWT jwt = ((TiangongAuthenticationToken) authentication).getToken();
         String token = jwt.getToken();
         httpServletResponse.setHeader(SecurityProperties.authKey, token);
         PrintWriter writer = null;

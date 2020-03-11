@@ -1,8 +1,10 @@
 package com.kaizhuo.security.config;
 
-import com.kaizhuo.security.auth.common.*;
-import com.kaizhuo.security.auth.jwt.*;
-import org.apache.catalina.filters.CorsFilter;
+import com.kaizhuo.security.service.authentication.filter.OptionRequestFilter;
+import com.kaizhuo.security.service.authentication.provider.TiangongAuthenticationProvider;
+import com.kaizhuo.security.service.authentication.filter.TiangongAuthenticationProcessingFilter;
+import com.kaizhuo.security.service.authentication.handler.TiangongLogoutSuccessHandler;
+import com.kaizhuo.security.service.impl.TiangongUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +13,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.header.Header;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,34 +34,16 @@ import java.util.List;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private TiangongAuthenticationEntryPoint authenticationEntryPoint;
-
-    @Autowired
-    private JwtAuthenticationSuccessHandler authenticationSuccessHandler;
-
-    @Autowired
-    private TiangongAuthenticationFailureHandler authenticationFailureHandler;
-
-    @Autowired
     private TiangongLogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
-    private TiangongAccessDeniedHandler accessDeniedHandler;
-
-    @Autowired
-    private JwtAuthenticationProvider jwtAuthenticationProvier;
+    private TiangongAuthenticationProvider tiangongAuthenticationProvider;
 
     @Autowired
     private SecurityProperties securityProperties;
 
     @Autowired
     private TiangongUserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
-    @Autowired
-    private JwtAuthenticationRefreshFilter jwtAuthenticationRefreshFilter;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -72,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(jwtAuthenticationProvier);
+        auth.authenticationProvider(tiangongAuthenticationProvider);
     }
 
     /**
@@ -99,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http    //禁用跨站csrf攻击防御
                 .csrf().disable()
                 //未登录
+                //未登录
                 //.httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                 //.and()
                 .formLogin()
@@ -109,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //登录成功
                 //.successHandler(authenticationSuccessHandler)
                 //登录失败
-                .failureHandler(authenticationFailureHandler)
+                //.failureHandler(authenticationFailureHandler)
                 .and()
                 .authorizeRequests()
                 //不需要通过登录验证就可以被访问的资源路径
@@ -120,15 +104,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 //.access("@tiangongAuthorityService.hasPermission(request,authentication)")
                 //跨域
-                .and()
-                .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
-                new Header("Access-control-Allow-Origin", "*"),
-                new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
+//                .and()
+//                .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
+//                new Header("Access-control-Allow-Origin", "*"),
+//                new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
 
-                .and()
-                .cors()
+//                .and()
+//                .cors()
                 .and()
                 .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 //.logoutUrl()
                 //注销成功
                 .logoutSuccessHandler(logoutSuccessHandler)
@@ -138,13 +124,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //记住我
         http.rememberMe().rememberMeParameter("rememberMe").userDetailsService(userDetailsService).tokenValiditySeconds(securityProperties.getTokenExpiredTime());
         //无权限
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+        //http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
         //JWT
-        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+        http
+                //.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 //直接使用内部的OAUTH_TOKEN_URL
-                //.addFilterAfter(externalAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(jwtAuthenticationRefreshFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(externalAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class)
+                //.addFilterAfter(jwtAuthenticationRefreshFilter, UsernamePasswordAuthenticationFilter.class)
+        ;
 
         /***跨域*/
 //        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
@@ -153,11 +141,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
     @Bean
-    public JwtAuthenticationProcessingFilter externalAuthenticationProcessingFilter() {
+    public TiangongAuthenticationProcessingFilter externalAuthenticationProcessingFilter() {
         // 自定义认证filter，需要实现CustomAuthenticationProcessingFilter和CustomerAuthenticationProvider
         // filter将过滤url并把认证信息塞入authentication作为CustomerAuthenticationProvider.authenticate的入参
-        JwtAuthenticationProcessingFilter filter = new JwtAuthenticationProcessingFilter();
+        TiangongAuthenticationProcessingFilter filter = new TiangongAuthenticationProcessingFilter();
 
         // 默认自定义认证方式grant_type为authorization_code方式，如果直接返回内容，则需自定义success和fail handler
         // filter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler());
@@ -170,5 +159,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

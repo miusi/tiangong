@@ -1,8 +1,8 @@
-package com.kaizhuo.security.auth.jwt;
+package com.kaizhuo.security.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.kaizhuo.security.auth.common.TiangongUserDetailsService;
+import com.kaizhuo.security.service.impl.TiangongUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import java.util.Date;
  **/
 @Slf4j
 @Service
-public class JwtUserDetailsService extends TiangongUserDetailsService {
+public class TiangongUserDetailsServiceImpl extends TiangongUserDetailsService {
 
     private static final String SALT = "123456";
 

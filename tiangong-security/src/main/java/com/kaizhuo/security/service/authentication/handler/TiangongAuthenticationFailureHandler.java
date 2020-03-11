@@ -1,11 +1,11 @@
-package com.kaizhuo.security.auth.common;
+package com.kaizhuo.security.service.authentication.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.kaizhuo.core.model.dto.R;
 import com.kaizhuo.security.error.SecurityError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -17,26 +17,25 @@ import java.io.PrintWriter;
 /**
  * @program: tiangong
  * @package: com.kaizhuo.security.auth.common
- * @description: 自定义未登录
+ * @description: 自定义授权失败处理
  * @author: miaochen
- * @create: 2020-02-29 12:09
+ * @create: 2020-02-29 12:12
  * @copyright: CopyRight (c) 2020
  * @version: 1.0.0
  * @modified: miaochen
  **/
-@Component
 @Slf4j
-public class TiangongAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
+@Component
+public class TiangongAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void commence(HttpServletRequest httpServletRequest,
-                         HttpServletResponse httpServletResponse,
-                         AuthenticationException e) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
+                                        HttpServletResponse httpServletResponse,
+                                        AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
-        R r = R.error(SecurityError.USER_NOT_LOGIN);
+        R r = R.error(SecurityError.LOGIN_ERROR);
         PrintWriter writer = null;
         try {
             writer = httpServletResponse.getWriter();

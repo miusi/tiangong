@@ -1,10 +1,13 @@
 package com.kaizhuo.security.config;
 
-import com.kaizhuo.security.auth.common.TiangongAccessDeniedHandler;
-import com.kaizhuo.security.auth.common.TiangongAuthenticationEntryPoint;
-import com.kaizhuo.security.auth.common.TiangongAuthenticationFailureHandler;
-import com.kaizhuo.security.auth.common.TiangongLogoutSuccessHandler;
-import com.kaizhuo.security.auth.jwt.*;
+import com.kaizhuo.security.service.authentication.filter.TiangongAuthenticationRefreshFilter;
+import com.kaizhuo.security.service.authentication.filter.TiangongAuthenticationTokenFilter;
+import com.kaizhuo.security.service.authentication.handler.TiangongAccessDeniedHandler;
+import com.kaizhuo.security.service.authentication.handler.TiangongAuthenticationFailureHandler;
+import com.kaizhuo.security.service.authentication.handler.TiangongAuthenticationSuccessHandler;
+import com.kaizhuo.security.service.authentication.handler.TiangongLogoutSuccessHandler;
+import com.kaizhuo.security.service.authentication.provider.TiangongAuthenticationProvider;
+import com.kaizhuo.security.service.impl.TiangongUserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -43,14 +46,8 @@ public class SecurityAutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public TiangongAuthenticationEntryPoint tiangongAuthenticationEntryPoint() {
-        return new TiangongAuthenticationEntryPoint();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler() {
-        return new JwtAuthenticationSuccessHandler();
+    public TiangongAuthenticationSuccessHandler tiangongAuthenticationSuccessHandler() {
+        return new TiangongAuthenticationSuccessHandler();
     }
 
     @Bean
@@ -73,8 +70,8 @@ public class SecurityAutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtAuthenticationProvider jwtAuthenticationProvier() {
-        return new JwtAuthenticationProvider();
+    public TiangongAuthenticationProvider tiangongAuthenticationProvider() {
+        return new TiangongAuthenticationProvider();
     }
 
     @Bean
@@ -85,20 +82,20 @@ public class SecurityAutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtUserDetailsService jwtUserDetailsService() {
-        return new JwtUserDetailsService();
+    public TiangongUserDetailsServiceImpl jwtUserDetailsService() {
+        return new TiangongUserDetailsServiceImpl();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JwtAuthenticationTokenFilter();
+    public TiangongAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new TiangongAuthenticationTokenFilter();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtAuthenticationRefreshFilter jwtAuthenticationRefreshFilter() {
-        return new JwtAuthenticationRefreshFilter();
+    public TiangongAuthenticationRefreshFilter jwtAuthenticationRefreshFilter() {
+        return new TiangongAuthenticationRefreshFilter();
     }
 
     @Override

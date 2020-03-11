@@ -1,4 +1,4 @@
-package com.kaizhuo.security.auth.common;
+package com.kaizhuo.security.service.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

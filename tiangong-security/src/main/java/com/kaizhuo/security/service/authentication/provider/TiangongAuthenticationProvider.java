@@ -1,9 +1,11 @@
-package com.kaizhuo.security.auth.jwt;
+package com.kaizhuo.security.service.authentication.provider;
 
 import cn.hutool.crypto.SecureUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.kaizhuo.security.auth.common.TiangongUserDetails;
+import com.kaizhuo.security.service.authentication.TiangongAuthenticationToken;
+import com.kaizhuo.security.service.domain.TiangongUserDetails;
+import com.kaizhuo.security.service.impl.TiangongUserDetailsServiceImpl;
 import com.kaizhuo.security.config.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +34,10 @@ import java.util.Date;
  **/
 @Slf4j
 @Component
-public class JwtAuthenticationProvider implements AuthenticationProvider {
+public class TiangongAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
+    private TiangongUserDetailsServiceImpl jwtUserDetailsService;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -45,8 +47,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
         DecodedJWT decodedJWT = null;
-        if (authentication instanceof JwtAuthenticationToken) {
-            JwtAuthenticationToken jwtToken = (JwtAuthenticationToken) authentication;
+        if (authentication instanceof TiangongAuthenticationToken) {
+            TiangongAuthenticationToken jwtToken = (TiangongAuthenticationToken) authentication;
             decodedJWT = jwtToken.getToken();
 
             // token 验证过期
@@ -55,6 +57,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
                 throw new AccountExpiredException("token已过期");
             }
         } else {
+            //TODO 多种方式认证
             //验证密码
             String encodePwd = SecureUtil.sha256(SecureUtil.sha256(username) + SecureUtil.sha256(password));
             UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
@@ -66,7 +69,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         TiangongUserDetails tiangongUserDetails = new TiangongUserDetails(username, password);
-        return new JwtAuthenticationToken(tiangongUserDetails, decodedJWT, null);
+        return new TiangongAuthenticationToken(tiangongUserDetails, decodedJWT, null);
     }
 
     @Override

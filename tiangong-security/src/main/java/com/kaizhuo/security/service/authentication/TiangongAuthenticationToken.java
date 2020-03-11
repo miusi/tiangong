@@ -1,4 +1,4 @@
-package com.kaizhuo.security.auth.jwt;
+package com.kaizhuo.security.service.authentication;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -18,7 +18,7 @@ import java.util.Collections;
  * @version: 1.0.0
  * @modified: miaochen
  **/
-public class JwtAuthenticationToken extends AbstractAuthenticationToken {
+public class TiangongAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = -5014446855926448435L;
 
@@ -26,12 +26,12 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     private String credentials;
     private DecodedJWT token;
 
-    public JwtAuthenticationToken(DecodedJWT token) {
+    public TiangongAuthenticationToken(DecodedJWT token) {
         super(Collections.emptyList());
         this.token = token;
     }
 
-    public JwtAuthenticationToken(UserDetails userDetails, DecodedJWT token, Collection<? extends GrantedAuthority> authorities) {
+    public TiangongAuthenticationToken(UserDetails userDetails, DecodedJWT token, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = userDetails.getUsername();
         this.credentials = userDetails.getPassword();

@@ -1,5 +1,6 @@
-package com.kaizhuo.security.auth.jwt;
+package com.kaizhuo.security.service.authentication.handler;
 
+import com.kaizhuo.security.service.impl.TiangongUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,10 +23,10 @@ import java.io.IOException;
  * @modified: miaochen
  **/
 @Component
-public class JwtLogoutHandler implements LogoutSuccessHandler {
+public class TiangongLogoutHandler implements LogoutSuccessHandler {
 
     @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
+    private TiangongUserDetailsServiceImpl jwtUserDetailsService;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest,

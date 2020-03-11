@@ -1,4 +1,4 @@
-package com.kaizhuo.security.auth.common;
+package com.kaizhuo.security.service.authorization;
 
 import com.kaizhuo.core.security.TiangongSecurityService;
 import lombok.extern.slf4j.Slf4j;

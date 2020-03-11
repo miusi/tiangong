@@ -1,14 +1,14 @@
-package com.kaizhuo.security.auth.common;
+package com.kaizhuo.security.service.impl;
 
 import com.kaizhuo.core.exception.AppException;
 import com.kaizhuo.core.security.TiangongSecurityService;
 import com.kaizhuo.core.security.TiangongSecurityUser;
 import com.kaizhuo.security.error.SecurityError;
+import com.kaizhuo.security.service.domain.TiangongUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 /**
  * @program: tiangong
