@@ -1,5 +1,6 @@
 package com.kaizhuo.security.config;
 
+import com.kaizhuo.security.service.authentication.TiangongAuthenticationEntryPoint;
 import com.kaizhuo.security.service.authentication.filter.TiangongAuthenticationRefreshFilter;
 import com.kaizhuo.security.service.authentication.filter.TiangongAuthenticationTokenFilter;
 import com.kaizhuo.security.service.authentication.handler.TiangongAccessDeniedHandler;
@@ -46,6 +47,12 @@ public class SecurityAutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
+    public TiangongAuthenticationEntryPoint tiangongAuthenticationEntryPoint(){
+        return new TiangongAuthenticationEntryPoint();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public TiangongAuthenticationSuccessHandler tiangongAuthenticationSuccessHandler() {
         return new TiangongAuthenticationSuccessHandler();
     }
@@ -82,19 +89,19 @@ public class SecurityAutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public TiangongUserDetailsServiceImpl jwtUserDetailsService() {
+    public TiangongUserDetailsServiceImpl tiangongUserDetailsService() {
         return new TiangongUserDetailsServiceImpl();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public TiangongAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+    public TiangongAuthenticationTokenFilter tiangongAuthenticationTokenFilter() {
         return new TiangongAuthenticationTokenFilter();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public TiangongAuthenticationRefreshFilter jwtAuthenticationRefreshFilter() {
+    public TiangongAuthenticationRefreshFilter tiangongAuthenticationRefreshFilter() {
         return new TiangongAuthenticationRefreshFilter();
     }
 
