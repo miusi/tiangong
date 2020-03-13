@@ -14,7 +14,6 @@ import com.kaizhuo.security.service.impl.TiangongUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -56,9 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private TiangongUserDetailsService userDetailsService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private TiangongAuthenticationSuccessHandler tiangongAuthenticationSuccessHandler;
@@ -107,45 +103,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       //TODO OAUTH2.0
+        //TODO OAUTH2.0
         http    //禁用跨站csrf攻击防御
                 .csrf().disable()
                 //未登录
-                //未登录
                 .httpBasic().authenticationEntryPoint(tiangongAuthenticationEntryPoint)
                 .and()
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()
+                //rbac权限
+                .anyRequest()
+                //.authenticated()
+                .access("@tiangongAuthorityService.hasPermission(request,authentication)")
+
+                //跨域
+                .and()
+                .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
+                new Header("Access-control-Allow-Origin", "*"),
+                new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
+                .and()
+                .addFilterAfter(new OptionRequestFilter(), CsrfFilter.class)
                 .formLogin()
                 //登录成功
                 .successHandler(tiangongAuthenticationSuccessHandler)
                 //登录失败
                 .failureHandler(tiangongAuthenticationFailureHandler)
                 .and()
-                .authorizeRequests()
-                //rbac权限
-                .anyRequest()
-                //.authenticated()
-                .access("@tiangongAuthorityService.hasPermission(request,authentication)")
-                //跨域
-                .and()
-                .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
-                new Header("Access-control-Allow-Origin", "*"),
-                new Header("Access-Control-Expose-Headers", SecurityProperties.authKey))))
-
-                .and()
                 .cors()
                 .and()
                 .logout()
-                //.logoutUrl()
                 //注销成功
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
-
-        http.addFilterAfter(new OptionRequestFilter(), CsrfFilter.class);
         //记住我
         http.rememberMe().rememberMeParameter("rememberMe").userDetailsService(userDetailsService).tokenValiditySeconds(securityProperties.getTokenExpiredTime());
         //无权限
         http.exceptionHandling().accessDeniedHandler(tiangongAccessDeniedHandler);
-
         //JWT
         http
                 .addFilterBefore(tiangongAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
@@ -159,32 +152,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                = http.authorizeRequests();
 //        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
-    }
-
-
-    @Bean
-    public TiangongAuthenticationProcessingFilter externalAuthenticationProcessingFilter() {
-        // 自定义认证filter，需要实现CustomAuthenticationProcessingFilter和CustomerAuthenticationProvider
-        // filter将过滤url并把认证信息塞入authentication作为CustomerAuthenticationProvider.authenticate的入参
-        TiangongAuthenticationProcessingFilter filter = new TiangongAuthenticationProcessingFilter();
-
-        // 默认自定义认证方式grant_type为authorization_code方式，如果直接返回内容，则需自定义success和fail handler
-        // filter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler());
-        // filter.setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
-
-        filter.setAuthenticationManager(authenticationManager);
-        return filter;
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
