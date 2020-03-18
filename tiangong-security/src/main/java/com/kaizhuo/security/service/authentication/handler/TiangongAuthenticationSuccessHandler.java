@@ -47,6 +47,7 @@ public class TiangongAuthenticationSuccessHandler extends SavedRequestAwareAuthe
             Map<String, String> result = new HashMap<>();
             result.put("token", token);
             R r = R.ok(result);
+            r.setMsg("登录成功");
             writer = httpServletResponse.getWriter();
             writer.write(JSONUtil.toJsonStr(r));
         } catch (Exception ex) {

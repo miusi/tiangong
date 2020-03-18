@@ -36,6 +36,7 @@ public class TiangongAuthenticationFailureHandler implements AuthenticationFailu
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json; charset=utf-8");
         R r = R.error(SecurityError.LOGIN_ERROR);
+        r.setMsg("用户名或密码错误");
         PrintWriter writer = null;
         try {
             writer = httpServletResponse.getWriter();
