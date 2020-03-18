@@ -1,6 +1,7 @@
 package com.kaizhuo.component.rbac.mybatis.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kaizhuo.core.model.domain.BaseLogEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,6 +31,7 @@ public class User extends BaseLogEntity {
 
 
     @ApiModelProperty("密码")
+    @JsonIgnore
     private String password;
 
     @ApiModelProperty("姓名")
