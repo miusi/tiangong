@@ -218,12 +218,7 @@
                 <version>${java-jwt.version}</version>
             </dependency>
 
-            <!-- redis -->
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
+          
         </dependencies>
     </dependencyManagement>
     <scm>

@@ -23,11 +23,11 @@
         select u.*
         from tiangong_user as u
         <where>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(qo.phone)">
-                and u.phone like CONCAT('%',#{svo.phone},'%')
+            <if test="qo.phone !=null and qo.phone !=''">
+                and u.phone like CONCAT('%',#{qo.phone},'%')
             </if>
-            <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(qo.name)">
-                and u.name like CONCAT('%',#{svo.name},'%')
+            <if test="qo.name !=null and qo.name !=''">
+                and u.name like CONCAT('%',#{qo.name},'%')
             </if>
             and u.deleted=0
         </where>
