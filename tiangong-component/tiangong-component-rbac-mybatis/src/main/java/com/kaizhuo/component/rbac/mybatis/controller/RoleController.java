@@ -33,7 +33,7 @@ public class RoleController {
     @ApiOperation("获取角色列表")
     @GetMapping("page")
     public R<Page<Role>> page(BaseQueryRequest qo) {
-        IPage<Role> page = roleService.page(new Page<>(qo.getPageNum(), qo.getPageSize()));
+        IPage<Role> page = roleService.page(new Page<>(qo.getCurrent(), qo.getPageSize()));
         return R.ok(page);
     }
 

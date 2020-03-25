@@ -15,10 +15,10 @@ import lombok.Data;
  **/
 @Data
 public class BaseQueryRequest {
-    private int pageNum = 1;
+    private int current = 1;
     private int pageSize = 20;
 
     public <T> Page<T> getPage() {
-        return new Page<>(pageNum, pageSize);
+        return new Page<>(current, pageSize);
     }
 }
