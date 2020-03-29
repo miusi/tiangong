@@ -35,28 +35,26 @@ public class DeptController {
     @ApiOperation("获取单个数据")
     @GetMapping("{id}")
     public R<Dept> selectById(@PathVariable Integer id) {
-
         return R.ok(deptService.getById(id));
     }
 
     @ApiOperation("创建")
-    @PostMapping
+    @PostMapping("/add")
     public R insert(@RequestBody Dept dept) {
         deptService.save(dept);
         return R.ok();
     }
 
     @ApiOperation("编辑")
-    @PutMapping
+    @PostMapping("/edit")
     public R updateById(@RequestBody Dept dept) {
         deptService.updateById(dept);
         return R.ok();
     }
 
     @ApiOperation("删除")
-    @DeleteMapping("{id}")
+    @PostMapping("/remove")
     public R deleteById(@PathVariable Integer id) {
-
         deptService.deleteById(id);
         return R.ok();
     }

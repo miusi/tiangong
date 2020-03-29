@@ -28,9 +28,9 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
     public List<TreeNode> selectAll() {
         List<Dept> deptList = super.list();
         //转化为TreeNodeList
-        List<TreeNode> treeNodes = deptList.stream().map(item -> new TreeNode(item.getId(), item.getParentId(), item.getName(), item)).collect(Collectors.toList());
+        List<TreeNode> treeNodes = deptList.stream().map(item -> new TreeNode(item.getId(), item.getParentId(), item.getName(), item.getCreateDate(), item.getCreateBy(), item.getUpdateDate(), item.getUpdateBy(), item)).collect(Collectors.toList());
         //转化为树
-        return  CommonUtil.listToTree(treeNodes);
+        return CommonUtil.listToTree(treeNodes);
     }
 
     @Override

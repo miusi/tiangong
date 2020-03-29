@@ -58,14 +58,14 @@ public class RoleController {
     }
 
     @ApiOperation("编辑")
-    @PutMapping("updateByKey")
+    @PostMapping("/edit")
     public R updateByPrimaryKey(@RequestBody Role role){
         roleService.updateRole(role);
         return R.ok();
     }
 
     @ApiOperation("删除")
-    @DeleteMapping("{id}")
+    @PostMapping("/remove")
     public R deleteByPrimaryKey(@PathVariable Integer id) {
         roleService.deleteRole(id);
         return R.ok();

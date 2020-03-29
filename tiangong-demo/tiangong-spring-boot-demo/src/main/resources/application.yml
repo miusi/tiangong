@@ -30,6 +30,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: AUTO
+      update-strategy: NOT_NULL
 tiangong:
   security:
     noAuthPaths: ["/index.html"]

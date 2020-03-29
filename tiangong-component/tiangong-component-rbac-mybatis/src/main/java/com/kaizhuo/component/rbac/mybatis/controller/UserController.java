@@ -71,9 +71,10 @@ public class UserController {
     }
 
     @ApiOperation("删除")
-    @DeleteMapping("{id}")
-    public void deleteById(@PathVariable Integer id) {
-        userService.removeById(id);
+    @PostMapping("/remove")
+    public R deleteById(@RequestBody User user) {
+        userService.removeById(user.getId());
+        return R.ok();
     }
 
 //    @ApiOperation("修改密码")

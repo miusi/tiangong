@@ -10,8 +10,12 @@ import com.kaizhuo.component.rbac.mybatis.service.UserService;
 import com.kaizhuo.component.rbac.mybatis.vo.UserVo;
 import com.kaizhuo.core.model.domain.BaseService;
 import com.kaizhuo.core.model.domain.enums.YnEnums;
+import com.kaizhuo.core.security.TiangongSecurityService;
+import com.kaizhuo.core.security.TiangongSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * @program: tiangong
@@ -43,7 +47,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @Override
     public void insert(User user) {
         String phone = user.getPhone();
-        checkUnique(User::getName, user.getUsername(), null, "用户已存在");
+        checkUnique(User::getUsername, user.getUsername(), null, "用户已存在");
         checkUnique(User::getPhone, phone, null, "手机号已经存在，请更换");
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         user.setStatus(YnEnums.Y.getKey());
@@ -61,6 +65,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         user.setPassword(null);
         user.setPassword(null);
         user.setStatus(null);
+        user.setCreateBy(null);
+        user.setCreateDate(null);
+        user.setUpdateDate(LocalDateTime.now());
         super.updateById(user);
         //插入角色
         if (isNotEmpty(user.getRoles())) {
