@@ -34,18 +34,18 @@ public class MenuController {
         return R.ok(menuService.selectAll());
     }
     @ApiOperation("创建")
-    @PostMapping
+    @PostMapping("/add")
     public R insert(@RequestBody Menu menu){
         return R.ok(menuService.save(menu));
     }
 
     @ApiOperation("编辑")
-    @PutMapping
-    public R updareById(@RequestBody Menu menu){
+    @PutMapping("/edit")
+    public R updateById(@RequestBody Menu menu){
         return R.ok(menuService.updateById(menu));
     }
     @ApiOperation("删除")
-    @DeleteMapping("{id}")
+    @PostMapping("/remove")
     public R deleteById(@PathVariable Integer id) {
 
         menuService.deleteById(id);
